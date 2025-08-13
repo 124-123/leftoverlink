@@ -49,6 +49,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware', 
 ]
 
 ROOT_URLCONF = 'leftoverlink.urls'
@@ -137,7 +138,7 @@ CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CELERY_BEAT_SCHEDULE = {
     'expire-food-posts-every-5-mins': {
         'task': 'leftoverlink_app.tasks.mark_expired_posts',
@@ -145,13 +146,5 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# Static files settings for Render
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # <- Added for static files
-    ...
-]
+
