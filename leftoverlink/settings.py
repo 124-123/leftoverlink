@@ -144,3 +144,14 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': 300,  
     },
 }
+
+# Static files settings for Render
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',  # <- Added for static files
+    ...
+]
