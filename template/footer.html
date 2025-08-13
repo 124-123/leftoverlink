@@ -1,0 +1,50 @@
+{% load static %}
+<!-- footer.html -->
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+<footer class="bg-dark text-light pt-5 pb-3 mt-5" data-aos="fade-up">
+  <div class="container">
+    <div class="row">
+      <!-- Logo and About -->
+      <div class="col-md-6 mb-3">
+        <h5 class="text-success">LeftoverLink</h5>
+        <p>Connecting surplus food to those in need. Reduce waste. Serve with dignity.</p>
+      </div>
+
+      <!-- Contact Info -->
+      <div class="col-md-6 mb-3">
+        <h6>Contact</h6>
+        <p><i class="bi bi-geo-alt-fill me-2"></i>Pune, Maharashtra</p>
+        <p><i class="bi bi-envelope-fill me-2"></i>leftoverlink3@gmail.com</p>
+        <p><i class="bi bi-telephone-fill me-2"></i>+91 8788360118</p>
+      </div>
+    </div>
+
+    <hr class="border-light" />
+
+    <div class="text-center">
+      <small>&copy; 2025 LeftoverLink. All rights reserved.</small><br>
+      <small><i class="bi bi-rocket me-2"></i>Built with <i class="bi bi-heart me-1 text-danger"></i>by <strong>Tech Trio</strong></small>
+    </div>
+  </div>
+
+  <!-- Scroll to top button -->
+  <button id="scrollTopBtn" class="btn btn-success position-fixed bottom-0 end-0 m-4 rounded-circle shadow d-none">
+    <i class="bi bi-arrow-up-short fs-4"></i>
+  </button>
+</footer>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+  AOS.init();
+  const scrollBtn = document.getElementById("scrollTopBtn");
+  window.onscroll = function () {
+    scrollBtn.classList.toggle("d-none", window.scrollY < 200);
+  };
+  scrollBtn.onclick = function () {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+</script>

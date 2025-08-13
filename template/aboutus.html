@@ -1,0 +1,130 @@
+{% extends 'navbar.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+  <title>About Us - LeftoverLink</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Bootstrap Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+
+  <!-- AOS Animation CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+    }
+    .vision-img {
+      width: 100%;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
+    .info-icon {
+      margin-right: 10px;
+      color: #198754;
+    }
+    .highlight {
+      color: #198754;
+      font-weight: bold;
+    }
+    .values i {
+      font-size: 2rem;
+      color: #198754;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container my-5">
+  <!-- Section: About Us -->
+  <h2 class="section-title text-center mb-5" data-aos="fade-up">About Us</h2>
+
+  <div class="row align-items-center">
+    <div class="col-md-6" data-aos="fade-right">
+      <img src="{% static 'images/aboutusnew.jpg' %}" alt="About Us" class="vision-img mb-4" />
+    </div>
+    <div class="col-md-6" data-aos="fade-left">
+      <h4 class="text-success">Our Vision</h4>
+      <p>
+        At <span class="highlight">LeftoverLink</span>, we envision a sustainable and inclusive food-sharing ecosystem. We aim to bridge the gap between surplus and scarcity—ensuring no edible food goes to waste and every hungry person is served with dignity.
+      </p>
+    </div>
+  </div>
+
+  <!-- Section: Mission -->
+  <div class="row mt-5" data-aos="fade-up">
+    <div class="col">
+      <h4 class="text-success">Our Mission</h4>
+      <p>
+        Our mission is to empower communities, restaurants, and organizations to share leftover food responsibly. We facilitate real-time connections between donors and NGOs to reduce waste and hunger.
+      </p>
+    </div>
+  </div>
+
+  <!-- Section: Core Values -->
+  <div class="row mt-5 values text-center">
+    <h4 class="text-success mb-4" data-aos="fade-up">Our Core Values</h4>
+    <div class="col-md-4" data-aos="zoom-in">
+      <i class="bi bi-recycle"></i>
+      <h6>Sustainability</h6>
+      <p>We aim to reduce food wastage at every level of the supply chain.</p>
+    </div>
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+      <i class="bi bi-heart-fill"></i>
+      <h6>Compassion</h6>
+      <p>We believe everyone deserves a warm meal and dignity.</p>
+    </div>
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+      <i class="bi bi-globe2"></i>
+      <h6>Community</h6>
+      <p>We connect donors and NGOs to strengthen local support systems.</p>
+    </div>
+  </div>
+
+  <!-- Section: Contact -->
+  <div class="row mt-5" data-aos="fade-up">
+    <div class="col-md-6">
+      <h4 class="text-success">Contact Us</h4>
+      <p><i class="bi bi-geo-alt-fill info-icon"></i> Pune, Maharashtra</p>
+      <p><i class="bi bi-envelope-fill info-icon"></i> leftoverlink3@gmail.com</p>
+      <p><i class="bi bi-telephone-fill info-icon"></i> +91 8788360118</p>
+    </div>
+
+    <div class="col-md-6" data-aos="fade-left">
+      <h4 class="text-success">Meet the Team</h4>
+      <p>We are a passionate group of students and developers dedicated to building smart solutions for societal problems. <span class="highlight">Tech Trio</span> is behind the development of this project.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- AOS Animation JS -->
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,
+    once: true
+  });
+</script>
+{% include 'footer.html' %}
+
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: leftoverlink
+    env: python
+    plan: free
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+      python manage.py migrate
+    startCommand: gunicorn leftoverlink.wsgi:application --bind 0.0.0.0:$PORT
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: DJANGO_SETTINGS_MODULE
+        value: leftoverlink.settings
+    staticPublishPath: staticfiles
+    autoDeploy: true

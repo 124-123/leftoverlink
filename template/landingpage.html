@@ -1,0 +1,202 @@
+{% extends 'navbar.html'%}
+{% load static %}
+{%block content%}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+    <title>LeftoverLink homepage</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <!-- AOS Animation CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet" />
+    <style>
+      .hero-section {
+        background: url("{% static 'images/img1.jpg' %}") no-repeat center center/cover;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        animation: fadeInBg 2s ease-in;
+        position: relative;
+        color: white;
+        text-align: center;
+      }
+
+      .hero-overlay {
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 3rem;
+        border-radius: 10px;
+        animation: slideUp 1s ease-out;
+      }
+
+      /* CARDS */
+      .card {
+        border: none;
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        animation: scaleIn 1s ease forwards;
+        opacity: 0;
+      }
+
+      .card:hover {
+        transform: translateY(-10px) scale(1.03);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      }
+
+      .card:nth-child(1) { animation-delay: 0.2s; }
+      .card:nth-child(2) { animation-delay: 0.4s; }
+      .card:nth-child(3) { animation-delay: 0.6s; }
+
+      /* BUTTONS */
+      .btn {
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      }
+
+      /* ANIMATIONS */
+      @keyframes fadeInBg {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+
+      @keyframes slideUp {
+        from {
+          opacity: 0;
+          transform: translateY(50px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes scaleIn {
+        0% {
+          opacity: 0;
+          transform: scale(0.8);
+        }
+        100% {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .hero-section {
+        background: url("{% static 'images/grocery.jpg' %}") no-repeat center center/cover;
+        height: 400px;
+        position: relative;
+      }
+
+      .hero-overlay {
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        padding: 2rem;
+        text-align: center;
+      }
+       /* RESPONSIVE */
+      @media (max-width: 768px) {
+        .hero-section {
+          height: auto;
+          padding: 4rem 1rem;
+        }
+
+        .hero-overlay h1 {
+          font-size: 1.8rem;
+        }
+
+        .hero-overlay p {
+          font-size: 1rem;
+        }
+
+        .btn {
+          font-size: 0.9rem;
+          padding: 0.6rem 1.2rem;
+        }
+      }
+  
+    </style>
+  </head>
+  <body>
+
+    <section class="hero-section text-white text-center" data-aos="fade-down">
+      <div class="hero-overlay d-flex flex-column justify-content-center align-items-center">
+        <h1 class="display-5 fw-bold">Connect, Share, and Support</h1>
+        <p class="lead">LeftoverLink bridges the gap between surplus resources and those in need, fostering a community of care.</p>
+        <div class="d-flex gap-3">
+          <a href="{% url 'signin' %}" class="btn btn-success">Signin Now</a>
+        </div>
+      </div>
+    </section>
+
+   <section class="py-5" data-aos="fade" id="how-it-works">
+      <div class="container">
+        <h2 class="fw-bold text-center mb-4">How LeftoverLink Works</h2>
+        <p class="text-center text-muted mb-5">Our platform simplifies the process of donating and receiving surplus items, ensuring resources reach those who need them most.</p>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="zoom-in">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-hand-holding-heart me-2 text-success"></i>For Donors</h5>
+                <p class="card-text text-muted">Easily list surplus food, clothes, or essentials for donation. Connect with nearby NGOs and individuals in need.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-search me-2 text-primary"></i>For Receivers</h5>
+                <p class="card-text text-muted">Browse available items and connect with donors directly. Find resources that meet your needs.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+            <div class="card h-100 shadow-sm">
+              <div class="card-body">
+                <h5 class="card-title"><i class="fas fa-users me-2 text-warning"></i>Community Impact</h5>
+                <p class="card-text text-muted">Join a network of givers and receivers, making a tangible difference in your community. Reduce waste and support sustainability.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light text-center" data-aos="fade-up">
+      <div class="container">
+        <h3 class="fw-bold mb-3">Join LeftoverLink Today</h3>
+        <p class="mb-4">Start making a difference in your community. Sign up as a donor or receiver and begin connecting.</p>
+        <a href="{% url 'signin' %}" class="btn btn-success btn-lg">Get Started</a>
+      </div>
+    </section>
+
+    <section class="py-5 bg-light text-center" data-aos="fade-up">
+      <div class="container">
+        <h3 class="fw-bold mb-3">About Us</h3>
+        <p class="mb-4">Learn More About Us</p>
+        <a href="{% url 'aboutus' %}" class="btn btn-success btn-lg">About us</a>
+      </div>
+    </section>
+
+   {% include 'footer.html' %}
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AOS Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+
+
+    <script>
+      AOS.init({
+        duration: 1000,
+        once: true
+      });
+    </script>
+
+  {% endblock %}
+  </body>
+</html>

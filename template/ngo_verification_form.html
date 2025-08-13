@@ -1,0 +1,127 @@
+{% extends "navbar.html" %}
+{% load static %}
+{% block content %}
+<link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-10">
+      <div class="card shadow-sm">
+        <div class="card-header bg-white">
+          <h4 class="mb-0">NGO Verification Request</h4>
+          <small class="text-muted">Upload legal documents for NGO verification</small>
+        </div>
+        <a href="{% url 'ngo' %}" class="btn btn-success">Skip (Fill Later)</a>
+        <div class="card-body">
+          {% if messages %}
+            {% for msg in messages %}
+              <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+            {% endfor %}
+          {% endif %}
+
+          <form method="post" enctype="multipart/form-data" novalidate id="verification">
+            {% csrf_token %}
+
+            <div class="mb-3">
+                <label for="ngo_name" class="form-label">NGO Name</label>
+                <input type="text" class="form-control" id="ngo_name" name="ngo_name" required>
+            </div>
+           <div class="mb-3">
+                <label for="date_of_registration" class="form-label">Date of Registration</label>
+                <input type="date" class="form-control" id="date_of_registration" name="date_of_registration" required>
+            </div>
+            <div class="mb-3">
+                <label for="registration_number" class="form-label">Registration Number</label>
+                <input type="text" class="form-control" id="registration_number" name="registration_number" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="contact_person" class="form-label">Contact Person</label>
+                <input type="text" class="form-control" id="contact_person" name="contact_person" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="phone_number" class="form-label">Phone Number</label>
+                <input type="tel" class="form-control" id="phone_number" name="contact_phone" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="email" class="form-label">Email</label>
+                <input type="email" class="form-control" id="email" name="contact_email" required>
+            </div>
+
+            <div class="mb-3">
+                <label for="address" class="form-label">Address</label>
+                <textarea class="form-control" id="address" name="address" rows="3" required></textarea>
+            </div>
+
+
+              <hr class="my-3">
+
+              <div class="col-md-6">
+                <label class="form-label">Registration Certificate (PDF/JPG) *</label>
+                <input name="registration_certificate" type="file" accept=".pdf,image/*" class="form-control" {% if not existing %} required {% endif %}>
+                {% if existing and existing.registration_certificate %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.registration_certificate.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">PAN Card (image/PDF) *</label>
+                <input name="pan_card" type="file" accept=".pdf,image/*" class="form-control" {% if not existing %} required {% endif %}>
+                {% if existing and existing.pan_card %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.pan_card.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Aadhaar Card (image/PDF) *</label>
+                <input name="aadhaar_card" type="file" accept=".pdf,image/*" class="form-control" {% if not existing %} required {% endif %}>
+                {% if existing and existing.aadhaar_card %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.aadhaar_card.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Bank Statement (last 6 months) *</label>
+                <input name="bank_statement" type="file" accept=".pdf,image/*" class="form-control" {% if not existing %} required {% endif %}>
+                {% if existing and existing.bank_statement %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.bank_statement.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">80G Certificate (if any)</label>
+                <input name="certificate_80g" type="file" accept=".pdf,image/*" class="form-control">
+                {% if existing and existing.certificate_80g %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.certificate_80g.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">12A Certificate (if any)</label>
+                <input name="certificate_12a" type="file" accept=".pdf,image/*" class="form-control">
+                {% if existing and existing.certificate_12a %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.certificate_12a.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+              <div class="col-md-6">
+                <label class="form-label">Annual Report (optional)</label>
+                <input name="annual_report" type="file" accept=".pdf,image/*" class="form-control">
+                {% if existing and existing.annual_report %}
+                  <small class="text-muted">Uploaded: <a href="{{ existing.annual_report.url }}" target="_blank">view</a></small>
+                {% endif %}
+              </div>
+
+            </div>
+
+            <div class="mt-4 d-flex justify-content-between">
+              <button type="submit" class="btn btn-success">Submit Verification Request</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

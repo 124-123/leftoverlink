@@ -1,0 +1,193 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'css/nav_style.css' %}" />
+     <link rel="stylesheet" href="{% static 'css/responsive.css' %}" />
+
+    <title>LeftoverLink </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <style>
+        body {
+            padding-top: 70px;
+            transition: padding-left 0.3s ease;
+
+        }
+
+        .navbar-transition {
+            transition: margin-left 0.3s ease, transform 0.4s ease-in-out, opacity 0.4s ease;
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+
+        .navbar-loaded {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .navbar-shifted {
+            margin-left: 160px;
+        }
+
+        .navbar-brand {
+            transition: margin-left 0.3s ease;
+            margin-left: 0px;
+        }
+
+        .brand-shifted {
+            margin-left: 160px;
+        }
+
+        .navbar-nav .nav-btn {
+            background: none;
+            border: none;
+            position: relative;
+            font-weight: 500;
+            margin-left: 10px;
+            padding: 6px 10px;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-nav .nav-btn a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* Underline hover effect */
+        .navbar-nav .nav-btn::after {
+            content: '';
+            display: block;
+            width: 0%;
+            height: 2px;
+            background-color: #198754;
+            transition: width 0.3s ease;
+            position: absolute;
+            bottom: 0;
+            left: 10%;
+        }
+
+        .navbar-nav .nav-btn:hover::after {
+            width: 80%;
+        }
+
+        /* Donate button special style */
+        #donate {
+            background-color: #198754;
+            color: white;
+            border-radius: 4px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #donate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 0 10px rgba(25, 135, 84, 0.6);
+        }
+
+        .nav-btn.active {
+            font-weight: bold;
+            color: #198754;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+
+        @media (max-width: 768px) {
+            .navbar-nav .nav-btn {
+                display: block;
+                width: 100%;
+                margin: 5px 0;
+                text-align: left;
+            }
+        }
+    </style>
+
+
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav id="mainNavbar"
+        class="navbar fixed-top navbar-expand-lg navbar-light bg-white shadow-sm px-4 navbar-transition">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="#">LeftoverLink</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <div class="navbar-nav">
+                    <button class="nav-btn" onclick="setActive(this)">
+                        <a href="{% url 'aboutus' %}" class="text-decoration-none text-dark">About</a>
+                    </button>
+                    <button class="nav-btn" onclick="setActive(this)">
+                        <a href="#how-it-works" class="text-decoration-none text-dark"  onclick="goToHowItWorks(event)">How it Works</a>
+                    </button>
+
+                    <button class="nav-btn" onclick="setActive(this)">
+                        <a href="{% url 'settings' %}" class="text-decoration-none text-dark">Settings</a>
+                    </button>
+                    {% if user.is_authenticated %}
+                    <button class="nav-btn" id="donate">
+                        <a href="{% url 'logout' %}" class="text-decoration-none text-white">Logout</a>
+                    </button>
+                    {% else %}
+                    <button class="nav-btn" id="donate">
+                        <a href="{% url 'signin' %}" class="text-decoration-none text-white">Signin Now</a>
+                    </button>
+                    {% endif %}
+
+                </div>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <script>
+        function setActive(clickedBtn) {
+            const buttons = document.querySelectorAll('.nav-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            clickedBtn.classList.add('active');
+        }
+
+        function expandNavbar() {
+            document.getElementById('mainNavbar').classList.add('navbar-shifted');
+            document.querySelector('.navbar-brand').classList.add('brand-shifted');
+            document.body.classList.add('body-with-sidebar');
+        }
+
+        function collapseNavbar() {
+            document.getElementById('mainNavbar').classList.remove('navbar-shifted');
+            document.querySelector('.navbar-brand').classList.remove('brand-shifted');
+            document.body.classList.remove('body-with-sidebar');
+        }
+
+        // Animate navbar on page load
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById('mainNavbar').classList.add('navbar-loaded');
+
+
+            function goToHowItWorks(event) {
+                const isHomePage = window.location.pathname === '/';
+                if (!isHomePage) {
+                    event.preventDefault();
+                    window.location.href = '/#how-it-works';
+                }
+                // else let default anchor scroll work
+            }
+
+
+        });
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
