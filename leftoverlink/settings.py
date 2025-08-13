@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#6e7h%38q@dutv^wbm)2^avs!kx*fpmkijd^9lozpv-$4&=1cv'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 import os
 
@@ -134,7 +134,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 AUTH_USER_MODEL = 'leftoverlink_app.CustomUser'
-
+from celery.schedules import crontab
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_BEAT_SCHEDULE = {}
 CELERY_BROKER_URL = 'redis://host.docker.internal:6379/0'
