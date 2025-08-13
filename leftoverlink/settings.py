@@ -24,7 +24,13 @@ SECRET_KEY = 'django-insecure-#6e7h%38q@dutv^wbm)2^avs!kx*fpmkijd^9lozpv-$4&=1cv
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+import os
+
+ALLOWED_HOSTS = [
+    'https://leftoverlink.onrender.com/', 
+    'localhost',
+    '127.0.0.1'
+]
 
 
 # Application definition
@@ -134,7 +140,8 @@ CELERY_BEAT_SCHEDULE = {}
 CELERY_BROKER_URL = 'redis://host.docker.internal:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-from celery.schedules import crontab
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = '/static/'
 
 CELERY_BEAT_SCHEDULE = {
     'expire-food-posts-every-5-mins': {
