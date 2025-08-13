@@ -4,10 +4,15 @@ services:
     env: python
     plan: free
     buildCommand: |
-      pip install --upgrade pip
       pip install -r requirements.txt
       python manage.py collectstatic --noinput
     startCommand: gunicorn leftoverlink.wsgi:application
     envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: leftoverlink-db
+          property: connectionString
+      - key: SECRET_KEY
+        generateValue: true
       - key: PYTHON_VERSION
-        value: 3.12.0
+        value: 3.11.9
