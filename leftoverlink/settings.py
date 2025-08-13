@@ -25,12 +25,7 @@ SECRET_KEY = 'django-insecure-#6e7h%38q@dutv^wbm)2^avs!kx*fpmkijd^9lozpv-$4&=1cv
 DEBUG = False
 
 import os
-
-ALLOWED_HOSTS = [
-    'https://leftoverlink.onrender.com/', 
-    'localhost',
-    '127.0.0.1'
-]
+ALLOWED_HOSTS = ['leftoverlink.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition
