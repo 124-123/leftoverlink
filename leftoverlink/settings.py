@@ -21,7 +21,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leftoverlink_app.apps.LeftoverlinkAppConfig',
+    'leftoverlink_app',
 ]
 
 # -----------------------------
@@ -63,17 +63,18 @@ WSGI_APPLICATION = 'leftoverlink.wsgi.application'
 # -----------------------------
 # Database (PostgreSQL / SQLite fallback)
 # -----------------------------
-DATABASE_URL = os.environ.get('DATABASE_URL')
+
 import dj_database_url
 
+DATABASE_URL = os.environ.get('DATABASE_URL')
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=os.environ.get('DATABASE_URL'),
-        conn_max_age=600,
-        ssl_require=True  # important for Render Postgres
+    'default': dj_database_url.parse(
+        DATABASE_URL or 'postgresql://leftoverlink_user:yUoSJ61lGvBbn7eOLtxNMt2Tq8wOXMIY@dpg-d2emd0juibrs7385v6g0-a:5432/leftoverlink',
+        conn_max_age=600
     )
 }
+
 
 TIME_ZONE = 'UTC'
 
