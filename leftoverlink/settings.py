@@ -120,9 +120,11 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
+# Static files
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Whitenoise will serve from here
+STATICFILES_DIRS = [BASE_DIR / 'static']  # your local static folder
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
@@ -138,9 +140,6 @@ CELERY_BEAT_SCHEDULE = {}
 CELERY_BROKER_URL = 'redis://host.docker.internal:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 CELERY_BEAT_SCHEDULE = {
     'expire-food-posts-every-5-mins': {
         'task': 'leftoverlink_app.tasks.mark_expired_posts',
@@ -148,11 +147,6 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-STATICFILES_DIRS = [
-    BASE_DIR / 'static', 
-]
 
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_MAX_AGE = 31536000  
