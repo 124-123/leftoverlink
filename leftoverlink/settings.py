@@ -62,13 +62,6 @@ DATABASES = {
     }
 
 
-# If DATABASE_URL is not set, fallback to SQLite for testing
-if DATABASES['default'] is None:
-    DATABASES['default'] = {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
@@ -108,11 +101,15 @@ CELERY_BEAT_SCHEDULE = {
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_MAX_AGE = 31536000
 
-MEDIA_URL = '/media/'
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+from cloudinary_storage.storage import MediaCloudinaryStorage
 
-CLOUDINARY_STORAGE = {
-    'CLOUD_NAME': os.environ.get('CLOUDINARY_CLOUD_NAME'),
-    'API_KEY': os.environ.get('CLOUDINARY_API_KEY'),
-    'API_SECRET': os.environ.get('CLOUDINARY_API_SECRET'),
-}
+cloudinary.config(
+    cloud_name=os.environ.get('CLOUDINARY_CLOUD_NAME', 'dtvrt2ie7'),
+    api_key=os.environ.get('CLOUDINARY_API_KEY', '258688691254381'),
+    api_secret=os.environ.get('CLOUDINARY_API_SECRET', '6-WeJRYHm0QT3w8nYu_qzjExtIE')
+)
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
