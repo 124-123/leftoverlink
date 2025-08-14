@@ -26,7 +26,5 @@ urlpatterns = [
     path('notifications/', views.notifications_page, name='notifications'),
     path('notifications/read/<int:pk>/', views.mark_as_read, name='mark_as_read'),
 
- ]
-if settings.DEBUG:
- urlpatterns+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+ ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
