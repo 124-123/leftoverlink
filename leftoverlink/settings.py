@@ -108,6 +108,7 @@ CELERY_BEAT_SCHEDULE = {
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_MAX_AGE = 31536000
 
+MEDIA_URL = '/media/'
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {
