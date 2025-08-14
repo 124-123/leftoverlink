@@ -2,18 +2,13 @@ from pathlib import Path
 import os
 import dj_database_url
 
-# -----------------------------
-# Base
-# -----------------------------
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = 'django-insecure-#6e7h%38q@dutv^wbm)2^avs!kx*fpmkijd^9lozpv-$4&=1cv'
 DEBUG = False
 ALLOWED_HOSTS = ['leftoverlink.onrender.com', 'localhost', '127.0.0.1']
 
-# -----------------------------
-# Installed Apps
-# -----------------------------
+# Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -21,15 +16,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'leftoverlink_app',
+    'leftoverlink_app.apps.LeftoverlinkAppConfig',
 ]
 
-# -----------------------------
-# Middleware
-# -----------------------------
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',  # Whitenoise
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -38,9 +30,6 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-# -----------------------------
-# URLs & Templates
-# -----------------------------
 ROOT_URLCONF = 'leftoverlink.urls'
 
 TEMPLATES = [
@@ -60,28 +49,25 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'leftoverlink.wsgi.application'
 
-# -----------------------------
-# Database (PostgreSQL / SQLite fallback)
-# -----------------------------
 
-import dj_database_url
-
-DATABASE_URL = os.environ.get('DATABASE_URL')
-
+# Database (PostgreSQL)
+# Use DATABASE_URL from Render environment variables
 DATABASES = {
-    'default': dj_database_url.parse(
-        DATABASE_URL or 'postgresql://leftoverlink_user:yUoSJ61lGvBbn7eOLtxNMt2Tq8wOXMIY@dpg-d2emd0juibrs7385v6g0-a:5432/leftoverlink',
-        conn_max_age=600
-    )
-}
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': BASE_DIR / 'db.sqlite3',
+        }
+    }
 
 
-TIME_ZONE = 'UTC'
+# If DATABASE_URL is not set, fallback to SQLite for testing
+if DATABASES['default'] is None:
+    DATABASES['default'] = {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 
-
-# -----------------------------
-# Password Validators
-# -----------------------------
+# Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',},
@@ -89,34 +75,27 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',},
 ]
 
-# -----------------------------
-# Internationalization
-# -----------------------------
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# -----------------------------
-# Static & Media Files
-# -----------------------------
-STATIC_URL = '/static/' 
-STATICFILES_DIRS = [BASE_DIR / 'static']  # your local static folder
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Static files
+STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# -----------------------------
-# Custom User Model
-# -----------------------------
-AUTH_USER_MODEL = 'leftoverlink_app.CustomUser'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# -----------------------------
+# Custom user model
+AUTH_USER_MODEL = 'leftoverlink_app.CustomUser'
+
 # Celery
-# -----------------------------
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
 CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
 CELERY_BEAT_SCHEDULE = {
@@ -126,8 +105,6 @@ CELERY_BEAT_SCHEDULE = {
     },
 }
 
-# -----------------------------
 # Whitenoise
-# -----------------------------
 WHITENOISE_USE_FINDERS = True
 WHITENOISE_MAX_AGE = 31536000
