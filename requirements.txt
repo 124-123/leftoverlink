@@ -9,6 +9,7 @@ click-repl==0.3.0
 colorama==0.4.6
 dj-database-url==3.0.1
 Django==5.2.5
+gunicorn==23.0.0
 kombu==5.5.4
 packaging==25.0
 pillow==11.3.0
