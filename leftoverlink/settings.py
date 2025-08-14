@@ -61,9 +61,8 @@ TEMPLATES = [
 WSGI_APPLICATION = 'leftoverlink.wsgi.application'
 
 # -----------------------------
-# Database
+# Database (PostgreSQL / SQLite fallback)
 # -----------------------------
-
 DATABASES = {
     'default': dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
