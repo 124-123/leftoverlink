@@ -66,12 +66,16 @@ WSGI_APPLICATION = 'leftoverlink.wsgi.application'
 DATABASE_URL = os.environ.get('DATABASE_URL')
 import dj_database_url
 
+
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://leftoverlink_user:yUoSJ61lGvBbn7eOLtxNMt2Tq8wOXMIY@dpg-d2emd0juibrs7385v6g0-a/leftoverlink'
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True  # important for Render Postgres
     )
 }
 
+TIME_ZONE = 'UTC'
 
 
 # -----------------------------
@@ -95,9 +99,9 @@ USE_TZ = True
 # -----------------------------
 # Static & Media Files
 # -----------------------------
-STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'  # Whitenoise will serve from here
+STATIC_URL = '/static/' 
 STATICFILES_DIRS = [BASE_DIR / 'static']  # your local static folder
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 MEDIA_URL = '/media/'
